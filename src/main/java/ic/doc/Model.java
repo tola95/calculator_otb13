@@ -16,11 +16,13 @@ public class Model {
 	public void addToCalculation(int i) {
 		calcStack.add(i);
 		count++;
+		view.update();
 	}
 	
 	public void addToCalculation(char c) {
 		calcStack.add(c);
 		count++;
+		view.update();
 	}
 	
 	public int calculate() {
@@ -37,6 +39,10 @@ public class Model {
 		default  : System.err.print("Invalid operation"); return 0;
 		}
 			
+	}
+	
+	public boolean timeToCalculate() {
+		return count == 3;
 	}
 
 }

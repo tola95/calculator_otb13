@@ -1,5 +1,6 @@
 package ic.doc;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,13 +12,16 @@ public class View implements Updatable {
 	private final int NUMBER_OF_INTS = 10;
 	private List<JButton> buttons = new ArrayList<JButton>();
 	private final JTextField textField = new JTextField(10);
+	private Model model;
 	
-	public View(ActionListener controller) {
+	public View(ActionListener controller, Model model) {
+		this.model = model;
+		
 		JFrame frame = new JFrame("RPN Calculator B)");
 		frame.setSize(300,200);
 		
 		setButtons();
-		setActionListenersForButtons(controller);
+		setActionListenersForButtons();
 		
 		JPanel panel = new JPanel();
 		panel.add(textField);
@@ -38,9 +42,15 @@ public class View implements Updatable {
 		
 	}
 	
-	private void setActionListenersForButtons(ActionListener controller) {
-		for (JButton button : buttons) {
-			button.addActionListener(controller);
+	private void setActionListenersForButtons() {
+		for (final JButton button : buttons) {
+			button.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					textField.setText(button.getName());
+//					model.addToCalculation(button.getName());
+				}
+			});;
 		}
 	}
 	
@@ -51,8 +61,11 @@ public class View implements Updatable {
 	}
 
 	@Override
-	public void update(Model model) {
-//		if (buttons.get(0).)
+	public void update() {
+		if (model.timeToCalculate()) {
+			int ans = model.calculate();
+			textField.setText(Integer.toString(ans));
+		}
 		
 	}
 

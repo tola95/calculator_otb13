@@ -4,29 +4,28 @@ import java.util.Stack;
 
 public class Model {
 	
-	private final Updatable view;
-	private Stack<Object> calcStack;
+	private Stack<Object> calcStack = new Stack<Object>();
 	
-	private int count = 0;
 	
-	public Model(Updatable view) {
-	    this.view = view;
+	public Model() {
+
 	}
 	
 	public void addToCalculation(int i) {
-		calcStack.add(i);
-		count++;
-		view.update();
+		if (calcStack.size() < 2) {
+		    calcStack.add(i);
+		}
 	}
 	
 	public void addToCalculation(char c) {
-		calcStack.add(c);
-		count++;
-		view.update();
+		if (calcStack.size() == 2) {
+		    calcStack.add(c);
+		}
 	}
 	
 	public int calculate() {
-		assert (count == 3);
+		assert (calcStack.size() == 3);
+		
 		char oper = (char) calcStack.pop();
 		int arg2 = (int) calcStack.pop();
 		int arg1 = (int) calcStack.pop();
@@ -37,12 +36,12 @@ public class Model {
 		case '*' : return arg1 * arg2;
 		case '/' : return arg1 / arg2;
 		default  : System.err.print("Invalid operation"); return 0;
-		}
-			
+		}	
+		
 	}
 	
 	public boolean timeToCalculate() {
-		return count == 3;
+		return calcStack.size() == 3;
 	}
 
 }

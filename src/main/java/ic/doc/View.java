@@ -33,8 +33,6 @@ public class View implements Updatable {
 		
 	private void setButtons() {
 		for (Integer i=0; i<NUMBER_OF_INTS; i++) {
-			MyButton button = new MyButton(i.toString());
-			button.setValue(i);
 			numButtons.add(new JButton(i.toString()));
 		}
 		
@@ -55,11 +53,13 @@ public class View implements Updatable {
 			button.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					textField.setText(button.getText());
+					getTextField().setText(button.getText());
 					int param = Integer.parseInt(button.getText());
 					model.addToCalculation(param);
 					update();
 				}
+
+				
 			});;
 		}
 		
@@ -74,6 +74,10 @@ public class View implements Updatable {
 				}
 			});;
 		}
+	}
+	
+	public JTextField getTextField() {
+		return textField;
 	}
 	
 	private void addButtonsToJPanel(JPanel panel) {

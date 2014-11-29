@@ -1,7 +1,5 @@
 package ic.doc;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,34 +48,28 @@ public class View implements Updatable {
 	
 	private void setActionListenersForButtons() {
 		for (final JButton button : numButtons) {
-			button.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					getTextField().setText(button.getText());
-					int param = Integer.parseInt(button.getText());
-					model.addToCalculation(param);
-					update();
-				}
-
-				
-			});;
+			button.addActionListener(new Controller(this, button));
 		}
 		
 		for (final JButton button : operButtons) {
-			button.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					textField.setText(button.getText());
-					char oper = button.getText().charAt(0);
-					model.addToCalculation(oper);
-					update();
-				}
-			});;
+			button.addActionListener(new Controller(this, button));
 		}
 	}
 	
 	public JTextField getTextField() {
 		return textField;
+	}
+	
+	public List<JButton> getNumButtons() {
+		return numButtons;
+	}
+	
+	public List<JButton> getOperButtons() {
+		return operButtons;
+	}
+	
+	public Model getModel() {
+		return model;
 	}
 	
 	private void addButtonsToJPanel(JPanel panel) {

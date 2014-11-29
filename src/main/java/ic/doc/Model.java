@@ -6,7 +6,6 @@ public class Model {
 	
 	private Stack<Object> calcStack = new Stack<Object>();
 	
-	
 	public Model() {
 
 	}
@@ -24,7 +23,7 @@ public class Model {
 	}
 	
 	public int calculate() {
-		assert (calcStack.size() == 3);
+		assert (calcStack.size() == 3); 
 		
 		char oper = (char) calcStack.pop();
 		int arg2 = (int) calcStack.pop();
